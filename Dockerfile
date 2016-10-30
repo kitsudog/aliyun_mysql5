@@ -4,9 +4,5 @@ RUN yum install -y \
     mysql-server \
     mysql
 
-VOLUME /var/lib/mysql
-
-RUN service mysqld start
-
 EXPOSE 3306
 CMD ["/usr/bin/mysqld_safe"]
