@@ -4,5 +4,7 @@ RUN yum install -y \
     mysql-server \
     mysql
 
+ADD run.sh /root/
+
 EXPOSE 3306
-CMD ["/usr/bin/mysqld_safe"]
+ENTRYPOINT ["/root/run.sh"]
