@@ -5,6 +5,8 @@ RUN yum install -y \
     mysql
 
 ADD run.sh /root/
+COPY my.cnf /etc/my.cnf
 
+VOLUME /var/lib/mysql
 EXPOSE 3306
 ENTRYPOINT ["/root/run.sh"]

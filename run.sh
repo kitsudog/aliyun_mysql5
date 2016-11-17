@@ -2,18 +2,14 @@
 set -e
 
 chown -R mysql:mysql /var/lib/mysql
-mysql_install_db --user mysql > /dev/null
-
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-""}
 MYSQL_DATABASE=${MYSQL_DATABASE:-""}
 MYSQL_USER=${MYSQL_USER:-""}
 MYSQL_PASSWORD=${MYSQL_PASSWORD:-""}
 
-tfile=`mktemp`
-if [[ ! -f "$tfile" ]]; then
-    return 1
-fi
+service mysqld start
 
+tfile=`mktemp`
 cat << EOF > $tfile
 GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY "$MYSQL_ROOT_PASSWORD" WITH GRANT OPTION; 
 FLUSH PRIVILEGES;
@@ -27,7 +23,6 @@ if [[ $MYSQL_DATABASE != "" ]]; then
     fi
 fi
 
-/usr/bin/mysqld_safe --bootstrap --verbose=0 < $tfile
+mysql -e"source $tfile"
 rm -f $tfile
-
-exec /usr/bin/mysqld_safe
+cat
