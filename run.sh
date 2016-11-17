@@ -15,10 +15,8 @@ if [[ ! -f "$tfile" ]]; then
 fi
 
 cat << EOF > $tfile
-USE mysql;
+GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY "$MYSQL_ROOT_PASSWORD" WITH GRANT OPTION; 
 FLUSH PRIVILEGES;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
-UPDATE user SET password=PASSWORD("$MYSQL_ROOT_PASSWORD") WHERE user='root';
 EOF
 
 if [[ $MYSQL_DATABASE != "" ]]; then
