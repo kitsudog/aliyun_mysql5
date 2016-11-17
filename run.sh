@@ -26,9 +26,8 @@ echo "init db"
 mysql -e"source $tfile"
 rm -f $tfile
 echo "start mysql succ"
-set +e
-cat
-echo ''
+tail /dev/stdout
+forego start -r
 echo 'stop mysql'
 service mysqld stop
 echo "stop mysql succ"
