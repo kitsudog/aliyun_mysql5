@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 chown -R mysql:mysql /var/lib/mysql
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-""}
