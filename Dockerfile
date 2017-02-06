@@ -4,12 +4,12 @@ RUN yum install -y \
     mysql-server \
     mysql
 
-ADD run.sh /root/
-COPY my.cnf /etc/my.cnf
-
 # Install Forego
 ADD https://github.com/jwilder/forego/releases/download/v0.16.1/forego /usr/local/bin/forego
 RUN chmod u+x /usr/local/bin/forego
+
+ADD run.sh /root/
+COPY my.cnf /etc/my.cnf
 
 VOLUME /var/lib/mysql
 EXPOSE 3306
